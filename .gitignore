@@ -1,6 +1,11 @@
 #html
 /html/*
 !/html/.keep
+!/html/wp-content
+/html/wp-content/*
+!/html/wp-content/plugins
+/html/wp-content/plugins/*
+!/html/wp-content/plugins/whatsup-plugin
 
 #mysql
 /php-playground/*

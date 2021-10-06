@@ -5,7 +5,7 @@
 /html/wp-content/*
 !/html/wp-content/plugins
 /html/wp-content/plugins/*
-!/html/wp-content/plugins/whatsup-plugin
+!/html/wp-content/plugins/Whatsup-plugin
 
 #mysql
 /php-playground/*

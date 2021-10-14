@@ -19,6 +19,7 @@ services:
       - db
     image: wordpress:latest
     volumes:
+      - "./log:/var/log"
       - ./html:/var/www/html
       - ./php-playground:/var/www/php-playground
       - ./apache2/ports.conf:/etc/apache2/ports.conf
@@ -63,8 +64,15 @@ services:
     volumes:
       - "./html/wp-content/plugins:/app"
       - "testsuite:/tmp"
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
 volumes:
   db_data: {}
   testsuite: {}
-  
+
 

@@ -1,33 +1,32 @@
 <?php
 /*
 Plugin Name: Whatsup-plugin
-Description: Let’s make your Web page visitors Contact you through “WhatsApp”, “WhatsUp” with a single Click (WhatsApp Chat, Group, Share)
-WhatsApp connectivity for WordPress websites! Engage customers and generate leads!
+Description: ¡Hagamos que los visitantes de su página web se comuniquen con usted a través de WhatsApp web o móvil, "WhatsUp" con un solo clic de conectividad de WhatsApp para sitios web de WordPress!
 Version: 0.0.1
 Author: Nangebav
 License: GPLv2 or later
 Text Domain: akismet
 */
 
-/*
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-Copyright 2005-2015 Automattic, Inc.
-*/
 
 function Activate (){
+    // Esta variable global permite acceder a todas las funciones de la base de datos de WP
+    global $wpdb; 
+    // Creará tabla sólo si no existe
+    $charset_collate = $wpdb->get_charset_collate();
+    $table_name = $wpdb->prefix.'table_form_Whatsup';
+
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name( 
+        `TableId` INT NOT NULL , 
+        `telephone` VARCHAR(15) NOT NULL , 
+        `messages` VARCHAR(400) NOT NULL , 
+        UNIQUE (`TableId`)) 
+        $charset_collate;
+        ENGINE = InnoDB;
+    ";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
+   
 }
 
 function Deactivate (){
@@ -38,9 +37,7 @@ function Deactivate (){
 register_activation_hook(__FILE__, 'Activate');
 register_deactivation_hook(__FILE__, 'Deactivate');
 
-
-add_action('admin_menu', 'createMenu');
-
+// Creación del menú de configuración
 function createMenu (){
  add_menu_page(
     'WhatsUp!',//Titulo de la pagina
@@ -52,3 +49,12 @@ function createMenu (){
      '1' //priority
  );
 }
+add_action('admin_menu', 'createMenu');
+
+// Registro de estilos de administración personalizados
+
+// Registro de estilos de chat personalizados
+
+// Habilitar Jquery predeterminado
+
+// Iniciamos carga de script que habilita el chat
